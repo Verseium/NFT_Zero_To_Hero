@@ -32,7 +32,7 @@ contract ERC721Metadata{
      // Functions to get the private variables name and symbol
      // Getter function for Name
      function getName()
-     public
+     external
      view
      returns(string memory){
          return name;
@@ -40,7 +40,7 @@ contract ERC721Metadata{
 
      // Getter function for Symbol
      function getSymbol()
-     public
+     external
      view
      returns(string memory){
          return symbol;
