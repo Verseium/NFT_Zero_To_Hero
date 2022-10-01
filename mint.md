@@ -31,6 +31,9 @@ contract ERC721{
     // Array for storing tokenURLs and giving an index
     string[] private tokenURI;
 
+    // Mappings
+
+
     // Mappings for storing address to the token IDS array
     mapping(address => uint[]) private tokensOwnedByOwner;
 
@@ -54,6 +57,82 @@ contract ERC721{
         return tokensOwnedByOwner[_owner];
 
     }
+
+    // Function to get the exact token details
+    function getTokenValue(address _owner,uint _tokenID)
+    public
+    view
+    returns(string memory){
+
+        uint requiredTokenID = tokensOwnedByOwner[_owner][_tokenID];
+
+        return tokenURI[requiredTokenID];
+
+    }
+
+}
+
+```
+
+
+### After optimising with a mapping
+
+
+```
+
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+
+// For MINTING NFTS
+
+// Imports
+
+// Contract for Minting NFTs
+contract ERC721{
+
+
+    // State Variables 
+    // Ararys
+    // Array for storing tokenURLs and giving an index
+    string[] private tokenURI;
+
+    // Mappings
+    mapping(uint => address) public tokenOwner;
+
+
+    // Mappings for storing address to the token IDS array
+    mapping(address => uint[]) private tokensOwnedByOwner;
+
+
+    // Functions
+    // Function to create an NFT token URI into an index
+    // Then to assign this NFT to an address
+    function tokenID(string memory _uri)
+    public{
+        tokenURI.push(_uri);
+        // Assigning this to the person who minted it
+
+        uint latestID = tokenURI.length - 1;
+        
+        tokensOwnedByOwner[msg.sender].push(latestID);
+        // tokenURI.length gives the total length and -1 gives the last index
+
+        // Assigning token ids a owner
+        tokenOwner[latestID] = msg.sender;
+
+    }
+
+    // Function to get the tokenIDS
+    function getTokenIds(address _owner)
+    public
+    view
+    returns(uint[] memory){
+
+        return tokensOwnedByOwner[_owner];
+
+    }
+
 
 }
 
