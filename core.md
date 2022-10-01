@@ -23,3 +23,27 @@ contract index{
 }
 
 ```
+
+
+### After connecting with the ERC721Connector contract
+
+```
+
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+
+// Imports
+import './ERC721Connector.sol';
+
+// Contract
+contract index is ERC721Connector{
+
+
+    // Constructor to create a NFT collection with name and symbol and connect with the connector
+     constructor(string memory _name,string memory _symbol) ERC721Connector(_name,_symbol){
+
+     }
+}
+
+```
